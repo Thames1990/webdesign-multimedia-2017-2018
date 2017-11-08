@@ -1,0 +1,55 @@
+body {
+    margin:0;
+}
+
+.container {
+    height:100vh;
+    display: grid;
+    grid-template-rows: 1fr 8fr 2fr 1fr;
+    grid-template-columns: 100%;
+    grid-template-areas: 
+        "header"
+        "content"
+        "sidebar"
+        "footer"
+    ;
+}
+
+@media screen and (min-width: 40em) {
+    .container {
+        grid-template-rows: 5em 1fr 5em;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+            "header header header header"
+            "content content content sidebar"
+            "footer footer footer footer"
+        ;
+    }
+}
+
+header {
+    background:tomato;
+    grid-area: header;
+}
+
+article {
+    background:gold;
+    grid-area: content;
+}
+
+aside {
+    background:lightgreen;
+    grid-area: sidebar;
+}
+
+footer {
+    background:lightblue;
+    grid-area: footer;
+}
+
+header, article, aside, footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 200%;
+}
