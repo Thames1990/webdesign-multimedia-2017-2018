@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Arvo");
+
+/* 
+Same as mobile-first, but this time fallback-first. Use Flex as baseline and build upon it.
+
+This isn't necessary, if you only want to support the latest versions of browsers. But keep in mind
+that i removed multi-browser support attributes.
+*/
 body,
 html {
-  display: -webkit-box;
-  display: -ms-flexbox;
+  /* 1D equivalent of CSS Grid */
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   position: relative;
   background: mintcream;
@@ -16,6 +18,7 @@ html {
   font-family: "Arvo", monospace;
 }
 
+/* If the browser supports CSS Grid */
 @supports ((display: -ms-grid) or (display: grid)) {
   body,
   html {
@@ -23,9 +26,21 @@ html {
   }
 }
 
+/* Only used as a message box to show the user that CSS Grid isn't supported */
 .message {
   border: 1px solid cornsilk;
-  padding: 2em;
+  /* 
+  Relative to the font-size of the root (2em means 2 times the size of the current font)
+  13px * 2 = 26px
+  There's also 'em', which is relative to the font size of the current element.
+   */
+  padding: 2rem;
+  /* 
+  Viewport (browser) width.
+  There's also vh (viewport height), which is really useful, because the real height
+  of the site could only be measured AFTER the side is loaded. CSS is already applied
+  before the site is fully loaded.
+  */
   font-size: 1.7vw;
   box-shadow: -2px 2px 10px 0px darkslategray;
 }
@@ -41,6 +56,7 @@ html {
   padding: 2rem;
 }
 
+/* If the screen width is at least 768 pixel */
 @media screen and (min-width: 768px) {
   .section {
     padding: 4rem;
@@ -55,53 +71,52 @@ html {
 
 h1 {
   font-size: 2rem;
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
 }
 
 .grid {
-  display: -ms-grid;
   display: grid;
+  /* Space between grid elements */
   grid-gap: 2rem;
-  -ms-grid-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Fit as many columns on the page with a minimum of 300 pixel in width  */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Align rows with a height relative to the font size of the page (times 15) */
   grid-auto-rows: 15rem;
+  /* Increase spatial column density (try to fill all open spots in columns) */
   grid-auto-flow: row dense;
 }
 
 .item {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
+  
+  /* Place item descriptions at the end of the column (bottom) */
   flex-direction: column;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
-  box-sizing: border-box;
-  background: lightseagreen;
-  color: white;
-  -ms-grid-column: auto;
-  grid-column: auto;
-  grid-column-start: auto;
-  -ms-grid-row: auto;
-  grid-row: auto;
-  grid-row-start: auto;
-  color: white;
+  
+  /* Set image by CSS */
   background: url("https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1000&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
+  
+  /* Try to fit the image to the element */
   background-size: cover;
   background-position: center;
+
   box-shadow: -2px 2px 10px 0px rgba(68, 68, 68, 0.4);
-  -webkit-transition: -webkit-transform 0.3s ease-in-out;
-  transition: -webkit-transform 0.3s ease-in-out;
+  
+  /* Animate the image hover zoom */
   transition: transform 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+
+  /* Change the mouse cursor */
   cursor: pointer;
+
+  /* 
+  This is used to count the number of elements.
+  Each time an item (class "item") is added, this number increases by 1.
+   */
   counter-increment: item-counter;
 }
 
+/* Each third item */
 .item:nth-of-type(3n) {
   background-image: url("https://images.unsplash.com/photo-1453814235491-3cfac3999928?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
 }
@@ -118,6 +133,7 @@ h1 {
   background-image: url("https://images.unsplash.com/photo-1494255109162-2f3d1eddb31e?auto=format&fit=crop&w=700&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
 }
 
+/* This slightly darkens the images, if the mouse doesn't hover above an item */
 .item:after {
   content: "";
   position: absolute;
@@ -125,53 +141,58 @@ h1 {
   height: 100%;
   background-color: black;
   opacity: 0.3;
-  -webkit-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
 
+/* If the mouse hovers over an item */
 .item:hover {
-  -webkit-transform: scale(1.05);
+  /* Slightly increase its size (zoom) */
   transform: scale(1.05);
 }
 
 .item:hover:after {
+  /* Remove the darkening of the image */
   opacity: 0;
 }
 
 .item--medium {
-  -ms-grid-row-span: 1;
+  /* Span two rows */
   grid-row-end: span 2;
 }
 
 .item--large {
-  -ms-grid-row-span: 3;
+  /* Span three rows */
   grid-row-end: span 3;
 }
 
 .item--full {
+  /* Span all columns */
   grid-column-end: auto;
 }
 
 @media screen and (min-width: 768px) {
   .item--full {
     grid-column: 1/-1;
-    -ms-grid-row-span: 2;
     grid-row-end: span 2;
   }
 }
 
 .item__details {
   position: relative;
+  /* Show it 'above' items */
   z-index: 1;
   padding: 1.15rem;
   color: darkslategray;
   background: white;
+  /* Try to change the items detail titles. They will always show as lowercase. */
   text-transform: lowercase;
+  /* Uniform letter spacing */
   letter-spacing: 1px;
   color: lightslategray;
 }
 
 .item__details:before {
+  /* Use the counter as the titles number */
   content: counter(item-counter);
   font-weight: bold;
   font-size: 1.1rem;
