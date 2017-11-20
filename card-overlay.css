@@ -1,0 +1,21 @@
+.item:hover>.item__details {
+    /* Hide item title */
+    visibility: hidden;
+}
+
+.item:hover>.item__description {
+    /* Show item description */
+    visibility: visible;
+}
+
+.item__description {
+    position: absolute;
+    padding: 1.15rem;
+    color: darkslategray;
+    background: white;
+    letter-spacing: 1px;
+    line-height: 2rem;
+    /* Hidden on default */
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s ease;
+}

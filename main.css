@@ -6,6 +6,7 @@ Same as mobile-first, but this time fallback-first. Use Flex as baseline and bui
 This isn't necessary, if you only want to support the latest versions of browsers. But keep in mind
 that i removed multi-browser support attributes.
 */
+
 body,
 html {
   /* 1D equivalent of CSS Grid */
@@ -18,7 +19,9 @@ html {
   font-family: "Arvo", monospace;
 }
 
+
 /* If the browser supports CSS Grid */
+
 @supports ((display: -ms-grid) or (display: grid)) {
   body,
   html {
@@ -26,7 +29,9 @@ html {
   }
 }
 
+
 /* Only used as a message box to show the user that CSS Grid isn't supported */
+
 .message {
   border: 1px solid cornsilk;
   /* 
@@ -56,7 +61,9 @@ html {
   padding: 2rem;
 }
 
+
 /* If the screen width is at least 768 pixel */
+
 @media screen and (min-width: 768px) {
   .section {
     padding: 4rem;
@@ -74,6 +81,11 @@ h1 {
   margin: 0 0 1.5rem;
 }
 
+a {
+  /* Hide link underline */
+  text-decoration: none;
+}
+
 .grid {
   display: grid;
   /* Space between grid elements */
@@ -89,26 +101,19 @@ h1 {
 .item {
   position: relative;
   display: flex;
-  
   /* Place item descriptions at the end of the column (bottom) */
   flex-direction: column;
   justify-content: flex-end;
-  
   /* Set image by CSS */
   background: url("https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1000&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
-  
   /* Try to fit the image to the element */
   background-size: cover;
   background-position: center;
-
   box-shadow: -2px 2px 10px 0px rgba(68, 68, 68, 0.4);
-  
   /* Animate the image hover zoom */
   transition: transform 0.3s ease-in-out;
-
   /* Change the mouse cursor */
   cursor: pointer;
-
   /* 
   This is used to count the number of elements.
   Each time an item (class "item") is added, this number increases by 1.
@@ -116,7 +121,9 @@ h1 {
   counter-increment: item-counter;
 }
 
+
 /* Each third item */
+
 .item:nth-of-type(3n) {
   background-image: url("https://images.unsplash.com/photo-1453814235491-3cfac3999928?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
 }
@@ -133,18 +140,20 @@ h1 {
   background-image: url("https://images.unsplash.com/photo-1494255109162-2f3d1eddb31e?auto=format&fit=crop&w=700&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
 }
 
-/* This slightly darkens the images, if the mouse doesn't hover above an item */
 .item:after {
   content: "";
   position: absolute;
   width: 100%;
   height: 100%;
+  /* This slightly darkens the images, if the mouse doesn't hover above an item */
   background-color: black;
   opacity: 0.3;
   transition: opacity 0.3s ease-in-out;
 }
 
+
 /* If the mouse hovers over an item */
+
 .item:hover {
   /* Slightly increase its size (zoom) */
   transform: scale(1.05);
@@ -182,13 +191,12 @@ h1 {
   /* Show it 'above' items */
   z-index: 1;
   padding: 1.15rem;
-  color: darkslategray;
+  color: lightslategray;
   background: white;
-  /* Try to change the items detail titles. They will always show as lowercase. */
-  text-transform: lowercase;
+  text-transform: capitalize;
   /* Uniform letter spacing */
   letter-spacing: 1px;
-  color: lightslategray;
+  transition: visibility 0s, opacity 0.5s ease;
 }
 
 .item__details:before {
@@ -198,4 +206,8 @@ h1 {
   font-size: 1.1rem;
   padding-right: 0.5em;
   color: darkslategray;
+}
+
+#card-overlay {
+  background-image: url("https://images.unsplash.com/photo-1501003878151-d3cb87799705?auto=format&fit=crop&w=1050&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D");
 }
